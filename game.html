@@ -1,17 +1,39 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>tes</title>
+<title>FLLAPYSHADOW</title>
+<!--
+NAMA GAME : FLLAPYSHADOW
+NAMA PEMBUATNYA : LASST THAN RENZEN
+-->
 <style>
 #canvas{
 border:2px solid black;
 width:380;
 height:750;
 }
+#target{
+	background:#C8C8C8;
+	width:90px;
+	height:90px;
+	position:absolute;
+	top:450px;
+	left:150px;
+	display:none;
+	animation:anim 1s infinite;
+	background:url("ulang1.png");
+}
+
+@keyframes anim{
+	to{background:url("ulang1.png");}
+	from{background:url("ulang2.png");}
+}
 </style>
 </head>
 <body>
+</div>
 <canvas id="canvas">not support JavaScript</canvas>
+<div id="target" onClick="document.location.reload();">
 <script src="game.js"></script>
 </body>
 <html>
