@@ -39,7 +39,6 @@ function start(){
 	var cw = canvas.width;
 	var ch = canvas.height;
 	
-	//alert("hello");
 	var bgX=0,mulai=false,z=180;
 	function splash (){
 		ctx.clearRect(0,0,cw,ch);
@@ -66,6 +65,7 @@ function start(){
 			clearInterval(insplash);
 			var hiro = new Audio();
 			hiro.src="sound/hiro.mp3";
+			hiro.loop=true;
 			hiro.play();
 			game();
 			}
@@ -86,20 +86,22 @@ function start(){
 		var latar = new background();
 		var ganti=false;
 		function Player (){
-			this.x=100;this.y=350;this.w=100,this.h=100,this.i=0;
-			this.render=function (){
-			if(ganti){
-				ctx.drawImage(ps2,this.x,this.y+=5);
-				this.i++;
-			if(this.i==7){
-				ganti=false;
-				this.i=0;
-				}
-			}else{
-					ctx.drawImage(ps1,this.x,this.y+=5);
+				this.x=100;this.y=350;this.w=100,this.h=100,this.i=0;
+				this.render=function (){
+				if(ganti){
+					rik.play();
+					ctx.drawImage(ps2,this.x,this.y+=5);
+					this.i++;
+				if(this.i==5){
+					wosh.play();
+					ganti=false;
+					this.i=0;
 					}
-			}
-		}//end player
+				}else{
+						ctx.drawImage(ps1,this.x,this.y+=5);
+						}
+				}
+			}//end player
 
 			var player = new Player ();
 			var tiang = [];
@@ -111,7 +113,8 @@ function start(){
 				tiang.push({"x":x,"y":y-acak,"w":w,"h":h})
 			}
 			var hitung=0;
-			function selesai(){
+			function selesai(tes){
+				btnulang=tes;
 				death.play();
 				clearInterval(interval);
 				ctx.clearRect(0,0,cw,ch);
@@ -124,6 +127,10 @@ function start(){
 				ctx.font="Bold 40px courier";
 				ctx.fillText("SKOR MU: "+skor,100,360);
 				ctx.fillStyle="#FFFFFF";
+				var x = document.getElementById("target");
+  				if (btnulang==true) {
+    					x.style.display = "block";
+  				}
 				//ctx.drawImage(btnulang,135,460);
 				//125,160
 			}
@@ -136,7 +143,7 @@ function start(){
 				for(var i=0;i<tiang.length;i++){
 					var t = tiang[i];
 					if((player.x+player.w>t.x && player.y<t.y+t.h && player.x<t.x+t.w)||(player.x+player.w>t.x && player.y+player.h>t.y+t.h+250 && player.x<t.x+t.w)){
-						selesai ();
+						selesai (true);
 						}else if(t.x+t.w<player.x){
 							if(tambahnilai){
 								point.play();
@@ -145,8 +152,8 @@ function start(){
 								}
 							}
 				}
-				if(player.y<=0){selesai ();}
-				if(player.y+player.h>ch){selesai ();}
+				if(player.y<=0){selesai (true);}
+				if(player.y+player.h>ch){selesai (true);}
 			}//batas function kena
 
 			function rendertiang(){
@@ -184,6 +191,7 @@ function start(){
 				player.y-=75;
 				ganti=true;
 			});
+			console.log("lokasi lagu: "+latar.x);
 		}//batas fungsi game
 		
 	
